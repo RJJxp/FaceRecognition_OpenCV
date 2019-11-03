@@ -1,0 +1,3 @@
+/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles/edit_cache.dir
+/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles/rebuild_cache.dir
+/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles/test_fr.dir
