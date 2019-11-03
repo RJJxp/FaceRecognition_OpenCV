@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/test_fr.dir/main.cpp.o"
+  "CMakeFiles/test_fr.dir/src/main.cpp.o"
+  "CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o"
   "test_fr.pdb"
   "test_fr"
 )

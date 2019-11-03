@@ -7,6 +7,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
+#include "FaceRecognition.h"
+
 // declaration
 void detectAndDisplay(cv::Mat frame);
 void detectAndShow(cv::Mat frame); // only ROI
@@ -23,47 +25,17 @@ int main(int argc, char* argv[]) {
     std::cout << "Major version : " << CV_MAJOR_VERSION << std::endl;
     std::cout << "Minor version : " << CV_MINOR_VERSION << std::endl;
     std::cout << "Subminor version : " << CV_SUBMINOR_VERSION << std::endl;
-    // 3.4 model path
-    std::string model_dir = "/home/rjp/rjp_code/face/xml_34/";
-    std::string face_model_name = "haarcascade_frontalface_alt.xml";
-    std::string eyes_mode_name = "haarcascade_eye_tree_eyeglasses.xml";
-    // 2.4 model path
-    std::string model_dir_24 = "/home/rjp/rjp_code/face/xml_24/";
-    std::string nose_model_name = "haarcascade_mcs_nose.xml";
-    std::string mouth_model_name = "haarcascade_mcs_mouth.xml";
-    // pic path
-    std::string img_dir = "/home/rjp/rjp_code/face/human_face/";
-    std::string img_name = "face_01.jpg";
-    // load model
-    if (! face_cascade.load(model_dir + face_model_name)) {
-        std::cout << "face model load  failed." << std::endl;
-        return -1;
-    }
-    if (! eyes_cascade.load(model_dir + eyes_mode_name)) {
-        std::cout << "eyes model load failed." << std::endl;
-        return -1;
-    }
-    if (! nose_cascade.load(model_dir_24 + nose_model_name)) {
-        std::cout << "nose model load failed." << std::endl;
-        return -1;
-    }
-    if (! mouth_cascade.load(model_dir_24 + mouth_model_name)) {
-        std::cout << "mouth model load failed." << std::endl;
-        return -1;
-    }
-    // read image
-    cv::Mat img = cv::imread(img_dir + img_name);
-    if (img.empty()) {
-        std::cout << "load image failed." << std::endl;
-        return -1;
-    }
-    // detect and show
-    detectAndShow(img);
-    cv::waitKey(0);
 
+    FaceRecognition* fr = new FaceRecognition();
+    if (!fr->loadModel("/home/rjp/rjp_code/face/test4opencv_3.4/conf/ModelPath.yaml")) {
+        std::cout << "load model failed in main.cpp." << std::endl;
+        return -1;
+    }
     return 0;
 }
 
+// deprecated
+/*
 void detectAndShow(cv::Mat frame) {
     std::vector<cv::Rect> faces;
     cv::Mat frame_gray;
@@ -181,5 +153,7 @@ void detectAndDisplay(cv::Mat frame) {
         }
     }
     //-- Show what you got
-    cv::imshow( "opencv_24", frame);
+    cv::imshow( "opencv_34", frame);
  }
+
+ */
