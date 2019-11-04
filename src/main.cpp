@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    if (!fr->detectAll("/home/rjp/rjp_code/face/human_face/face_02.jpg")) {
+    if (!fr->detectAll("/home/rjp/rjp_code/face/human_face/face_01.jpg")) {
         std::cout << "detect failed." << std::endl;
         return -1;
     }

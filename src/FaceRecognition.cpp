@@ -71,8 +71,8 @@ int FaceRecognition::detectAll(std::string path) {
     std::cout << "face size is " << faces.size() << std::endl;
     
 
-    _roi_img = frame(faces[0]);
-    cv::Mat faceROI = frame_gray(faces[0]);
+    _roi_img = frame(faces[1]);
+    cv::Mat faceROI = frame_gray(faces[1]);
     std::vector<cv::Rect> eyes;
 
     // -- In each face, detect eyes
