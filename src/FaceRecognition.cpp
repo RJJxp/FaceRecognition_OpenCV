@@ -69,90 +69,69 @@ int FaceRecognition::detectAll(std::string path) {
     std::vector<double> level_width;
     _face_cascade.detectMultiScale(frame_gray, faces, reject_level, level_width, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
     std::cout << "face size is " << faces.size() << std::endl;
-    // std::cout << "reject level size is " << reject_level.size() << std::endl;
-    // std::cout << "reject level is " << reject_level[0] << std::endl;
-    // std::cout << "reject level width is " << level_width[0] << std::endl;
     
-    for( size_t i = 0; i < 1; i++ )
-    {
-        _roi_img = frame(faces[i]);
-        cv::Mat faceROI = frame_gray(faces[i]);
-        std::vector<cv::Rect> eyes;
 
-        // -- In each face, detect eyes
-        std::vector<int> eyes_reject_level;
-        std::vector<double> eyes_level_weight;
-        _eyes_cascade.detectMultiScale( faceROI, eyes, eyes_reject_level, eyes_level_weight, 1.1, 2, 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
-        std::cout << "eyes: " << eyes.size() << std::endl;
+    _roi_img = frame(faces[0]);
+    cv::Mat faceROI = frame_gray(faces[0]);
+    std::vector<cv::Rect> eyes;
 
-        if (getPreciseEyes(eyes) == 1) {    // return 1 which indicates there are at most 2 eyes detected.
-            if (eyes.size() == 1) {
-                _eye_01_score.first = eyes_reject_level[0];
-                _eye_01_score.second = eyes_level_weight[0];
-                _eye_02_score = _eye_01_score;
-            } else if (eyes.size() == 2) {
-                _eye_01_score.first = eyes_reject_level[0];
-                _eye_01_score.second = eyes_level_weight[0];
-                _eye_02_score.first = eyes_reject_level[1];
-                _eye_02_score.second = eyes_level_weight[1];
-            } else {
-                // ....
-            }
-            
-        } else {    // reutrn -1, no eyes detected or more than 2 eyes detected.
-            // TODO:
-            std::cout << "getPresiceEyes failed." << std::endl;
-            return -1;
-        }
+    // -- In each face, detect eyes
+    std::vector<int> eyes_reject_level;
+    std::vector<double> eyes_level_weight;
+    _eyes_cascade.detectMultiScale( faceROI, eyes, eyes_reject_level, eyes_level_weight, 1.1, 2, 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
+    std::cout << "eyes: " << eyes.size() << std::endl;
 
-        // detect nose;
-        std::vector<int> nose_reject_level;
-        std::vector<double> nose_level_weight;
-        std::vector<cv::Rect> nose;
-        _nose_cascade.detectMultiScale(faceROI, nose, nose_reject_level, nose_level_weight, 1.1, 2 , 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
-        std::cout << "nose: " << nose.size() << std::endl;
-        
-        int good_nose_index = getPreciseNose(nose);
-        if(good_nose_index != -1) {
-            _nose_score.first = nose_reject_level[good_nose_index];
-            _nose_score.second = nose_level_weight[good_nose_index];
+    if (getPreciseEyes(eyes) == 1) {    // return 1 which indicates there are at most 2 eyes detected.
+        if (eyes.size() == 1) {
+            _eye_01_score.first = eyes_reject_level[0];
+            _eye_01_score.second = eyes_level_weight[0];
+            _eye_02_score = _eye_01_score;
+        } else if (eyes.size() == 2) {
+            _eye_01_score.first = eyes_reject_level[0];
+            _eye_01_score.second = eyes_level_weight[0];
+            _eye_02_score.first = eyes_reject_level[1];
+            _eye_02_score.second = eyes_level_weight[1];
         } else {
-            std::cout << "getPreciseNose failed." << std::endl;
-            return -1;
+            // ....
         }
-
-        // for (size_t j = 0; j < nose.size(); ++j) {
-        //     cv::Point center(nose[j].x + nose[j].width*0.5, nose[j].y + nose[j].height*0.5);
-        //     int radius = cvRound((nose[j].width + nose[j].height)*0.25);
-        //     cv::circle(faceROI_2show, center, radius, cv::Scalar(255, 255, 0), 4, 8, 0);
-        //     std::cout << j << "\t nose level is " << nose_reject_level[j] << " weight is " << nose_level_weight[j] << std::endl;
-        // }
-
-        // detect mouth
-        std::vector<cv::Rect> mouth;
-        std::vector<int> mouth_reject_level;
-        std::vector<double> mouth_level_weight;
-        _mouth_cascade.detectMultiScale(faceROI, mouth, mouth_reject_level, mouth_level_weight, 1.1, 2 , 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
-        std::cout << "mouth: " << mouth.size() << std::endl;
-        int good_mouth_index = getPreciseMouth(mouth);
-        if (good_mouth_index != -1) {   // detect sucessfully.
-            _mouth_score.first = mouth_reject_level[good_mouth_index];
-            _mouth_score.second = mouth_level_weight[good_mouth_index];
-        } else {    // detect failde.
-            std::cout << "getPreciseMouth failed" << std::endl;
-            return -1;
-        }
-
-        // for (size_t j = 0; j < mouth.size(); ++j) {
-        //     cv::Point center(mouth[j].x + mouth[j].width*0.5, mouth[j].y + mouth[j].height*0.5);
-        //     int radius = cvRound( (mouth[j].width + mouth[j].height)*0.25);
-        //     cv::circle(faceROI_2show, center, radius, cv::Scalar(0, 0, 255), 4, 8, 0);
-        //     std::cout << j << "\t nose level is " << mouth_reject_level[j] << " weight is " << mouth_reject_level[j] << std::endl;
-        // }
-        // show
-        // cv::imshow("face\t" + std::to_string(i), faceROI_2show);
-        // cv::waitKey(0);
+        
+    } else {    // reutrn -1, no eyes detected or more than 2 eyes detected.
+        // TODO:
+        std::cout << "getPresiceEyes failed." << std::endl;
+        return -1;
     }
+
+    // detect nose;
+    std::vector<int> nose_reject_level;
+    std::vector<double> nose_level_weight;
+    std::vector<cv::Rect> nose;
+    _nose_cascade.detectMultiScale(faceROI, nose, nose_reject_level, nose_level_weight, 1.1, 2 , 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
+    std::cout << "nose: " << nose.size() << std::endl;
+    
+    int good_nose_index = getPreciseNose(nose);
+    if(good_nose_index != -1) {
+        _nose_score.first = nose_reject_level[good_nose_index];
+        _nose_score.second = nose_level_weight[good_nose_index];
+    } else {
+        std::cout << "getPreciseNose failed." << std::endl;
+        return -1;
+    }
+
+    // detect mouth
+    std::vector<cv::Rect> mouth;
+    std::vector<int> mouth_reject_level;
+    std::vector<double> mouth_level_weight;
+    _mouth_cascade.detectMultiScale(faceROI, mouth, mouth_reject_level, mouth_level_weight, 1.1, 2 , 0 |CV_HAAR_SCALE_IMAGE, cv::Size(30, 30), cv::Size(), true);
+    std::cout << "mouth: " << mouth.size() << std::endl;
+    int good_mouth_index = getPreciseMouth(mouth);
+    if (good_mouth_index != -1) {   // detect sucessfully.
+        _mouth_score.first = mouth_reject_level[good_mouth_index];
+        _mouth_score.second = mouth_level_weight[good_mouth_index];
+    } else {    // detect failde.
+        std::cout << "getPreciseMouth failed" << std::endl;
+        return -1;
+    }
+    
     std::cout << "detectAll() successfully." << std::endl;
     return 1;
 }
