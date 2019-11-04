@@ -57,38 +57,64 @@ include CMakeFiles/test_fr.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test_fr.dir/flags.make
 
-CMakeFiles/test_fr.dir/main.cpp.o: CMakeFiles/test_fr.dir/flags.make
-CMakeFiles/test_fr.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_fr.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_fr.dir/main.cpp.o -c /home/rjp/rjp_code/face/test4opencv_3.4/main.cpp
+CMakeFiles/test_fr.dir/src/main.cpp.o: CMakeFiles/test_fr.dir/flags.make
+CMakeFiles/test_fr.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_fr.dir/src/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_fr.dir/src/main.cpp.o -c /home/rjp/rjp_code/face/test4opencv_3.4/src/main.cpp
 
-CMakeFiles/test_fr.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_fr.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rjp/rjp_code/face/test4opencv_3.4/main.cpp > CMakeFiles/test_fr.dir/main.cpp.i
+CMakeFiles/test_fr.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_fr.dir/src/main.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rjp/rjp_code/face/test4opencv_3.4/src/main.cpp > CMakeFiles/test_fr.dir/src/main.cpp.i
 
-CMakeFiles/test_fr.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_fr.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rjp/rjp_code/face/test4opencv_3.4/main.cpp -o CMakeFiles/test_fr.dir/main.cpp.s
+CMakeFiles/test_fr.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_fr.dir/src/main.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rjp/rjp_code/face/test4opencv_3.4/src/main.cpp -o CMakeFiles/test_fr.dir/src/main.cpp.s
 
-CMakeFiles/test_fr.dir/main.cpp.o.requires:
+CMakeFiles/test_fr.dir/src/main.cpp.o.requires:
 
-.PHONY : CMakeFiles/test_fr.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/test_fr.dir/src/main.cpp.o.requires
 
-CMakeFiles/test_fr.dir/main.cpp.o.provides: CMakeFiles/test_fr.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/test_fr.dir/build.make CMakeFiles/test_fr.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/test_fr.dir/main.cpp.o.provides
+CMakeFiles/test_fr.dir/src/main.cpp.o.provides: CMakeFiles/test_fr.dir/src/main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/test_fr.dir/build.make CMakeFiles/test_fr.dir/src/main.cpp.o.provides.build
+.PHONY : CMakeFiles/test_fr.dir/src/main.cpp.o.provides
 
-CMakeFiles/test_fr.dir/main.cpp.o.provides.build: CMakeFiles/test_fr.dir/main.cpp.o
+CMakeFiles/test_fr.dir/src/main.cpp.o.provides.build: CMakeFiles/test_fr.dir/src/main.cpp.o
+
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o: CMakeFiles/test_fr.dir/flags.make
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o: ../src/FaceRecognition.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o -c /home/rjp/rjp_code/face/test4opencv_3.4/src/FaceRecognition.cpp
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rjp/rjp_code/face/test4opencv_3.4/src/FaceRecognition.cpp > CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.i
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rjp/rjp_code/face/test4opencv_3.4/src/FaceRecognition.cpp -o CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.s
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.requires:
+
+.PHONY : CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.requires
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.provides: CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.requires
+	$(MAKE) -f CMakeFiles/test_fr.dir/build.make CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.provides.build
+.PHONY : CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.provides
+
+CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.provides.build: CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o
 
 
 # Object files for target test_fr
 test_fr_OBJECTS = \
-"CMakeFiles/test_fr.dir/main.cpp.o"
+"CMakeFiles/test_fr.dir/src/main.cpp.o" \
+"CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o"
 
 # External object files for target test_fr
 test_fr_EXTERNAL_OBJECTS =
 
-test_fr: CMakeFiles/test_fr.dir/main.cpp.o
+test_fr: CMakeFiles/test_fr.dir/src/main.cpp.o
+test_fr: CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o
 test_fr: CMakeFiles/test_fr.dir/build.make
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_superres.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_videostab.so.3.4.8
@@ -118,6 +144,7 @@ test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_xphoto.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_dnn_objdetect.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_hfs.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_datasets.so.3.4.8
+test_fr: /usr/local/lib/libyaml-cpp.a
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_ximgproc.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_plot.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_text.so.3.4.8
@@ -139,7 +166,7 @@ test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_imgcodecs.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_imgproc.so.3.4.8
 test_fr: /home/rjp/MyOpenCV/opencv-3.4-install/lib/libopencv_core.so.3.4.8
 test_fr: CMakeFiles/test_fr.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable test_fr"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rjp/rjp_code/face/test4opencv_3.4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test_fr"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_fr.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -147,7 +174,8 @@ CMakeFiles/test_fr.dir/build: test_fr
 
 .PHONY : CMakeFiles/test_fr.dir/build
 
-CMakeFiles/test_fr.dir/requires: CMakeFiles/test_fr.dir/main.cpp.o.requires
+CMakeFiles/test_fr.dir/requires: CMakeFiles/test_fr.dir/src/main.cpp.o.requires
+CMakeFiles/test_fr.dir/requires: CMakeFiles/test_fr.dir/src/FaceRecognition.cpp.o.requires
 
 .PHONY : CMakeFiles/test_fr.dir/requires
 

@@ -1,0 +1,4 @@
+FaceModelPath: /home/rjp/rjp_code/face/xml_34/haarcascade_frontalface_alt.xml
+EyesModelPath: /home/rjp/rjp_code/face/xml_34/haarcascade_eye_tree_eyeglasses.xml
+NoseModelPath: /home/rjp/rjp_code/face/xml_24/haarcascade_mcs_nose.xml
+MouthModelPaht: /home/rjp/rjp_code/face/xml_24/haarcascade_mcs_mouth.xml
