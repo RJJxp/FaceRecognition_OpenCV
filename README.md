@@ -1,6 +1,6 @@
 # FaceRecognition_OpenCV
 
-This repertory simply shows how to use OpenCV-3.4 to do an easy frontal face recognition.
+This repository simply shows how to use OpenCV-3.4 to do an easy frontal face recognition.
 
 `README.md`  is updated on 20191104 20:03:33.
 
