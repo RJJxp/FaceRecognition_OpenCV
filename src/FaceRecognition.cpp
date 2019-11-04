@@ -180,7 +180,7 @@ int FaceRecognition::getPreciseEyes(const std::vector<cv::Rect>& eyes_rects) {
                                 eyes_rects[1].y + eyes_rects[1].height * 0.5);
         int diff_y = fabs(eye_01_center.y - eye_02_center.y);    // check whether the 2 eyes are level
         int center_y = (eye_01_center.y + eye_02_center.y) / 2; // make sure they are on the top of human face
-        if (diff_y < _roi_img.rows * 0.1 && center_y < _roi_img.rows * 0.5) {
+        if (center_y < _roi_img.rows * 0.5) {
             _eye_01 = eyes_rects[0];
             _eye_02 = eyes_rects[1];
             return 1;
@@ -201,42 +201,61 @@ int FaceRecognition::getPreciseEyes(const std::vector<cv::Rect>& eyes_rects) {
 // neareset to the mid 
 int FaceRecognition::getPreciseNose(const std::vector<cv::Rect>& nose_rects) {
     int roi_width = _roi_img.cols;
-    std::vector<double> dist_2_mid;
+    std::vector<int> nose_idx;  // find the index of the nosed below the eyes
+    double eyes_height = (_eye_01.y + _eye_01.height * 0.5 + _eye_02.y + _eye_02.height * 0.5) * 0.5;
     for (int i = 0; i < nose_rects.size(); ++i) {
-        double this_nose_x = nose_rects[i].x + nose_rects[i].width * 0.5;
-        dist_2_mid.push_back(fabs(this_nose_x - _roi_img.cols));
+        double this_nose_height = nose_rects[i].y + nose_rects[i].height * 0.5;
+        if (this_nose_height > eyes_height) {
+            nose_idx.push_back(i);
+        }
+    }
+    std::vector<double> dist_2_mid; // calculate the distance from mid line of face rect;
+    for (int i = 0; i < nose_idx.size(); ++i) {
+        int ii = nose_idx[i];
+        double this_nose_x = nose_rects[ii].x + nose_rects[ii].width * 0.5;
+        dist_2_mid.push_back(fabs(this_nose_x - _roi_img.cols * 0.5));
+    }
+    
+    if (dist_2_mid.size() == 0) {   // if there is no nose below eyes
+        return -1;
     }
     // find the min index
     auto iter = std::min_element(dist_2_mid.begin(), dist_2_mid.end());
-    int min_index = std::distance(dist_2_mid.begin(), iter);
-    // whether the nose is under eyes
-    double eyes_height = (_eye_01.y + _eye_01.height * 0.5 + _eye_02.y + _eye_02.height * 0.5) * 0.5;
-    double good_nose_height = nose_rects[min_index].y + nose_rects[min_index].height * 0.5;
-    if (good_nose_height > eyes_height) {
-        _nose = nose_rects[min_index];
-        return min_index;
-    } else {
-        return -1;
-    }
+    int min_idx_in_noseidx = std::distance(dist_2_mid.begin(), iter);
+    int min_idx = nose_idx[min_idx_in_noseidx];
+    // set the private variable 
+    _nose = nose_rects[min_idx];
+    return min_idx;
 }
 
 int FaceRecognition::getPreciseMouth(const std::vector<cv::Rect>& mouth_rects) {
     int roi_width = _roi_img.cols;
-    std::vector<double> dist_2_mid;
-    for (int i = 0; i < mouth_rects.size(); ++i) {
-        double this_mouth_x = mouth_rects[i].x + mouth_rects[i].width * 0.5;
-        dist_2_mid.push_back(fabs(this_mouth_x - _roi_img.cols));
-    }
-    // find the min index
-    auto iter = std::min_element(dist_2_mid.begin(), dist_2_mid.end());
-    int min_index = std::distance(dist_2_mid.begin(), iter);
+    std::vector<int> mouth_idx; // find the index of the mouths below the nose
     double nose_height = _nose.y + _nose.height * 0.5;
-    double good_mouth_height = mouth_rects[min_index].x + mouth_rects[min_index].height * 0.5;
-    if (good_mouth_height > nose_height) {
-        return min_index;
-    } else {
+    for (int i = 0; i < mouth_rects.size(); ++i) {
+        double this_mouth_height = mouth_rects[i].y + mouth_rects[i].height * 0.5;
+        if (this_mouth_height > nose_height) {
+            mouth_idx.push_back(i);
+        }
+    }
+    std::vector<double> dist_2_mid;
+    for (int i = 0; i < mouth_idx.size(); ++i) {
+        int ii = mouth_idx[i];
+        double this_mouth_x = mouth_rects[ii].x + mouth_rects[ii].width * 0.5;
+        dist_2_mid.push_back(fabs(this_mouth_x - _roi_img.cols * 0.5));
+    }
+
+    if (dist_2_mid.size() == 0) {   // indicate there is no mouth below nose
         return -1;
     }
+
+    // find the min index
+    auto iter = std::min_element(dist_2_mid.begin(), dist_2_mid.end());
+    int min_idx_in_mouthidx = std::distance(dist_2_mid.begin(), iter);
+    int min_idx = mouth_idx[min_idx_in_mouthidx];
+    // set the private variable
+    _mouth = mouth_rects[min_idx];
+    return min_idx;
 }
 
 void FaceRecognition::showResult() {
@@ -254,17 +273,23 @@ void FaceRecognition::showResult() {
     // drawing part
     cv::Point eye_01_center(_eye_01.x + _eye_01.width*0.5, _eye_01.y + _eye_01.height*0.5);
     cv::Point eye_02_center(_eye_02.x + _eye_02.width*0.5, _eye_02.y + _eye_02.height*0.5);
+    std::cout << "eyes: " << std::endl;
+    std::cout << eye_01_center << "---" << eye_02_center << std::endl;
     int eyes_radius = cvRound((_eye_01.width + _eye_01.height + _eye_02.width + _eye_02.height)*0.25*0.5);
     cv::circle(_roi_img, eye_01_center, eyes_radius, cv::Scalar(255, 0, 0), 4, 8, 0);
     cv::circle(_roi_img, eye_02_center, eyes_radius, cv::Scalar(255, 0, 0), 4, 8, 0);
 
     cv::Point nose_center(_nose.x + _nose.width * 0.5, _nose.y + _nose.height * 0.5);
+    std::cout << "nose: " << std::endl;
+    std::cout << nose_center << std::endl;
     int nose_radius = cvRound((_nose.width + _nose.height) * 0.25);
     cv::circle(_roi_img, nose_center, nose_radius, cv::Scalar(255, 255, 0), 4, 8, 0);
-
+    
     cv::Point mouth_center(_mouth.x + _mouth.width * 0.5, _mouth.y + _mouth.height * 0.5);
+    std::cout << "mouth: " << std::endl;
+    std::cout << mouth_center << std::endl;
     int mouth_radius = cvRound((_mouth.width + _mouth.height) * 0.5); 
-    cv::circle(_roi_img, mouth_center, mouth_radius, cv::Scalar(255, 255, 0), 4, 8, 0);
+    cv::circle(_roi_img, mouth_center, mouth_radius, cv::Scalar(255, 0, 255), 4, 8, 0);
 
     cv::imshow("result", _roi_img);
     cv::waitKey(0);

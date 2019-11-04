@@ -31,6 +31,13 @@ int main(int argc, char* argv[]) {
         std::cout << "load model failed in main.cpp." << std::endl;
         return -1;
     }
+
+    if (!fr->detectAll("/home/rjp/rjp_code/face/human_face/face_02.jpg")) {
+        std::cout << "detect failed." << std::endl;
+        return -1;
+    }
+
+    fr->showResult();
     return 0;
 }
 
