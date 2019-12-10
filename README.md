@@ -14,6 +14,8 @@ Using `cv::CascadeClassifier` to finished the main detection.
 
 [Model 2.4](https://github.com/opencv/opencv/tree/2.4/data) for the OpenCV-2.4 model. 
 
+These models could be found in OpenCV source code.
+
 1. Detect the eyes
 2. Detect the nose below the eyes which are the closest to the mid cols of ROI (Region of Interest, here indicates the human face, which is a rectangle).
 3. Detect the mouth below the nose which are closest to the mid cols of ROI.
